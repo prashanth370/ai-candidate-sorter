@@ -13,26 +13,35 @@ export type Database = {
         Row: {
           analysis_details: Json | null
           created_at: string | null
+          education_match_score: number | null
+          experience_match_score: number | null
           id: string
           job_id: string | null
           match_score: number
           resume_id: string | null
+          skill_match_score: number | null
         }
         Insert: {
           analysis_details?: Json | null
           created_at?: string | null
+          education_match_score?: number | null
+          experience_match_score?: number | null
           id?: string
           job_id?: string | null
           match_score: number
           resume_id?: string | null
+          skill_match_score?: number | null
         }
         Update: {
           analysis_details?: Json | null
           created_at?: string | null
+          education_match_score?: number | null
+          experience_match_score?: number | null
           id?: string
           job_id?: string | null
           match_score?: number
           resume_id?: string | null
+          skill_match_score?: number | null
         }
         Relationships: [
           {
@@ -55,7 +64,10 @@ export type Database = {
         Row: {
           created_at: string | null
           description: string
+          embedding: string | null
           id: string
+          min_experience: number | null
+          required_skills: string[]
           requirements: string[]
           title: string
           updated_at: string | null
@@ -63,7 +75,10 @@ export type Database = {
         Insert: {
           created_at?: string | null
           description: string
+          embedding?: string | null
           id?: string
+          min_experience?: number | null
+          required_skills?: string[]
           requirements?: string[]
           title: string
           updated_at?: string | null
@@ -71,7 +86,10 @@ export type Database = {
         Update: {
           created_at?: string | null
           description?: string
+          embedding?: string | null
           id?: string
+          min_experience?: number | null
+          required_skills?: string[]
           requirements?: string[]
           title?: string
           updated_at?: string | null
@@ -80,36 +98,57 @@ export type Database = {
       }
       resumes: {
         Row: {
+          candidate_name: string | null
+          certifications: string[] | null
           content_type: string
           created_at: string | null
           education: string | null
+          email: string | null
+          embedding: string | null
           experience: string | null
+          experience_years: number | null
           file_path: string
+          hash_signature: string | null
           id: string
           original_filename: string
           parsed_content: string | null
+          phone: string | null
           skills: string[] | null
         }
         Insert: {
+          candidate_name?: string | null
+          certifications?: string[] | null
           content_type: string
           created_at?: string | null
           education?: string | null
+          email?: string | null
+          embedding?: string | null
           experience?: string | null
+          experience_years?: number | null
           file_path: string
+          hash_signature?: string | null
           id?: string
           original_filename: string
           parsed_content?: string | null
+          phone?: string | null
           skills?: string[] | null
         }
         Update: {
+          candidate_name?: string | null
+          certifications?: string[] | null
           content_type?: string
           created_at?: string | null
           education?: string | null
+          email?: string | null
+          embedding?: string | null
           experience?: string | null
+          experience_years?: number | null
           file_path?: string
+          hash_signature?: string | null
           id?: string
           original_filename?: string
           parsed_content?: string | null
+          phone?: string | null
           skills?: string[] | null
         }
         Relationships: []
@@ -119,7 +158,178 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      binary_quantize:
+        | {
+            Args: {
+              "": string
+            }
+            Returns: unknown
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: unknown
+          }
+      halfvec_avg: {
+        Args: {
+          "": number[]
+        }
+        Returns: unknown
+      }
+      halfvec_out: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      halfvec_send: {
+        Args: {
+          "": unknown
+        }
+        Returns: string
+      }
+      halfvec_typmod_in: {
+        Args: {
+          "": unknown[]
+        }
+        Returns: number
+      }
+      hnsw_bit_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      hnsw_halfvec_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      hnsw_sparsevec_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      hnswhandler: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      ivfflat_bit_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      ivfflat_halfvec_support: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      ivfflathandler: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      l2_norm:
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: number
+          }
+      l2_normalize:
+        | {
+            Args: {
+              "": string
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: unknown
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: unknown
+          }
+      sparsevec_out: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      sparsevec_send: {
+        Args: {
+          "": unknown
+        }
+        Returns: string
+      }
+      sparsevec_typmod_in: {
+        Args: {
+          "": unknown[]
+        }
+        Returns: number
+      }
+      vector_avg: {
+        Args: {
+          "": number[]
+        }
+        Returns: string
+      }
+      vector_dims:
+        | {
+            Args: {
+              "": string
+            }
+            Returns: number
+          }
+        | {
+            Args: {
+              "": unknown
+            }
+            Returns: number
+          }
+      vector_norm: {
+        Args: {
+          "": string
+        }
+        Returns: number
+      }
+      vector_out: {
+        Args: {
+          "": string
+        }
+        Returns: unknown
+      }
+      vector_send: {
+        Args: {
+          "": string
+        }
+        Returns: string
+      }
+      vector_typmod_in: {
+        Args: {
+          "": unknown[]
+        }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
