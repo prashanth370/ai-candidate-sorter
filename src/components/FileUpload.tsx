@@ -3,6 +3,8 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, File, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { uploadResume } from '@/lib/resume-utils';
+import { useToast } from './ui/use-toast';
 
 interface FileUploadProps {
   onFileSelect: (files: File[]) => void;
@@ -17,11 +19,30 @@ const FileUpload = ({
   maxFiles = 5,
   className,
 }: FileUploadProps) => {
+  const { toast } = useToast();
+
   const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      onFileSelect(acceptedFiles);
+    async (acceptedFiles: File[]) => {
+      try {
+        onFileSelect(acceptedFiles);
+        
+        for (const file of acceptedFiles) {
+          await uploadResume(file);
+        }
+
+        toast({
+          title: "Files uploaded successfully",
+          description: `${acceptedFiles.length} resume(s) have been uploaded and stored`,
+        });
+      } catch (error) {
+        toast({
+          title: "Upload failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
     },
-    [onFileSelect]
+    [onFileSelect, toast]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

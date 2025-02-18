@@ -9,7 +9,111 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      candidate_analyses: {
+        Row: {
+          analysis_details: Json | null
+          created_at: string | null
+          id: string
+          job_id: string | null
+          match_score: number
+          resume_id: string | null
+        }
+        Insert: {
+          analysis_details?: Json | null
+          created_at?: string | null
+          id?: string
+          job_id?: string | null
+          match_score: number
+          resume_id?: string | null
+        }
+        Update: {
+          analysis_details?: Json | null
+          created_at?: string | null
+          id?: string
+          job_id?: string | null
+          match_score?: number
+          resume_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "candidate_analyses_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "job_descriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidate_analyses_resume_id_fkey"
+            columns: ["resume_id"]
+            isOneToOne: false
+            referencedRelation: "resumes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_descriptions: {
+        Row: {
+          created_at: string | null
+          description: string
+          id: string
+          requirements: string[]
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          id?: string
+          requirements?: string[]
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          id?: string
+          requirements?: string[]
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      resumes: {
+        Row: {
+          content_type: string
+          created_at: string | null
+          education: string | null
+          experience: string | null
+          file_path: string
+          id: string
+          original_filename: string
+          parsed_content: string | null
+          skills: string[] | null
+        }
+        Insert: {
+          content_type: string
+          created_at?: string | null
+          education?: string | null
+          experience?: string | null
+          file_path: string
+          id?: string
+          original_filename: string
+          parsed_content?: string | null
+          skills?: string[] | null
+        }
+        Update: {
+          content_type?: string
+          created_at?: string | null
+          education?: string | null
+          experience?: string | null
+          file_path?: string
+          id?: string
+          original_filename?: string
+          parsed_content?: string | null
+          skills?: string[] | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
